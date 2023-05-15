@@ -21,4 +21,3 @@ C:\Gabi\Projects\testeBS\CreditoFinanceiro\ControleFinanceiro.BLL\obj\Debug\net6
 C:\Gabi\Projects\testeBS\CreditoFinanceiro\ControleFinanceiro.BLL\obj\Debug\net6.0\ControleFinanceiro.BLL.dll
 C:\Gabi\Projects\testeBS\CreditoFinanceiro\ControleFinanceiro.BLL\obj\Debug\net6.0\ref\ControleFinanceiro.BLL.dll
 C:\Gabi\Projects\testeBS\CreditoFinanceiro\ControleFinanceiro.BLL\obj\Debug\net6.0\ControleFinanceiro.BLL.pdb
-C:\Gabi\Projects\testeBS\CreditoFinanceiro\ControleFinanceiro.BLL\obj\Debug\net6.0\ControleFinanceiro.BLL.csproj.AssemblyReference.cache

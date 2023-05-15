@@ -28,11 +28,12 @@ namespace ControleFinanceiro.DAL.Migrations
                 name: "Clientes",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ClienteId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Nome = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CPF = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     UF = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Celular = table.Column<int>(type: "int", nullable: false),
+                    Id = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -50,7 +51,7 @@ namespace ControleFinanceiro.DAL.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Clientes", x => x.Id);
+                    table.PrimaryKey("PK_Clientes", x => x.ClienteId);
                 });
 
             migrationBuilder.CreateTable(
@@ -91,7 +92,7 @@ namespace ControleFinanceiro.DAL.Migrations
                         name: "FK_AspNetUserClaims_Clientes_UserId",
                         column: x => x.UserId,
                         principalTable: "Clientes",
-                        principalColumn: "Id",
+                        principalColumn: "ClienteId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -111,7 +112,7 @@ namespace ControleFinanceiro.DAL.Migrations
                         name: "FK_AspNetUserLogins_Clientes_UserId",
                         column: x => x.UserId,
                         principalTable: "Clientes",
-                        principalColumn: "Id",
+                        principalColumn: "ClienteId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -135,7 +136,7 @@ namespace ControleFinanceiro.DAL.Migrations
                         name: "FK_AspNetUserRoles_Clientes_UserId",
                         column: x => x.UserId,
                         principalTable: "Clientes",
-                        principalColumn: "Id",
+                        principalColumn: "ClienteId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -155,7 +156,7 @@ namespace ControleFinanceiro.DAL.Migrations
                         name: "FK_AspNetUserTokens_Clientes_UserId",
                         column: x => x.UserId,
                         principalTable: "Clientes",
-                        principalColumn: "Id",
+                        principalColumn: "ClienteId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -165,11 +166,12 @@ namespace ControleFinanceiro.DAL.Migrations
                 {
                     FinanciamentoId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    CPF = table.Column<int>(type: "int", maxLength: 20, nullable: false),
+                    CPF = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     TipoFinancimento = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ValorTotal = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     ClienteID = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    DataUltimoVencimento = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    DataUltimoVencimento = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ValorTotalComJuros = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -178,14 +180,15 @@ namespace ControleFinanceiro.DAL.Migrations
                         name: "FK_Financiamentos_Clientes_ClienteID",
                         column: x => x.ClienteID,
                         principalTable: "Clientes",
-                        principalColumn: "Id");
+                        principalColumn: "ClienteId");
                 });
 
             migrationBuilder.CreateTable(
                 name: "Parcelas",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     FinanciamentoId = table.Column<int>(type: "int", nullable: false),
                     NumeroParcela = table.Column<int>(type: "int", nullable: false),
                     ValorParcela = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
@@ -196,12 +199,42 @@ namespace ControleFinanceiro.DAL.Migrations
                 {
                     table.PrimaryKey("PK_Parcelas", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Parcelas_Financiamentos_Id",
-                        column: x => x.Id,
+                        name: "FK_Parcelas_Financiamentos_FinanciamentoId",
+                        column: x => x.FinanciamentoId,
                         principalTable: "Financiamentos",
                         principalColumn: "FinanciamentoId",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.InsertData(
+                table: "Clientes",
+                columns: new[] { "ClienteId", "AccessFailedCount", "CPF", "Celular", "ConcurrencyStamp", "Email", "EmailConfirmed", "Id", "LockoutEnabled", "LockoutEnd", "Nome", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UF", "UserName" },
+                values: new object[] { "1", 0, "12345678956", 999999999, "10a5aec9-78a9-405a-aaf8-a152d7c47ef4", null, false, null, false, null, "Administrador", null, null, null, null, false, null, false, "SP", null });
+
+            migrationBuilder.InsertData(
+                table: "Clientes",
+                columns: new[] { "ClienteId", "AccessFailedCount", "CPF", "Celular", "ConcurrencyStamp", "Email", "EmailConfirmed", "Id", "LockoutEnabled", "LockoutEnd", "Nome", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UF", "UserName" },
+                values: new object[] { "2", 0, "90345678900", 999922993, "869f7872-e5a3-48c3-a2db-5a9bee51f8e9", null, false, null, false, null, "Usuário", null, null, null, null, false, null, false, "RS", null });
+
+            migrationBuilder.InsertData(
+                table: "Financiamentos",
+                columns: new[] { "FinanciamentoId", "CPF", "ClienteID", "DataUltimoVencimento", "TipoFinancimento", "ValorTotal", "ValorTotalComJuros" },
+                values: new object[] { 1, "12345678956", "1", new DateTime(2023, 10, 3, 0, 0, 0, 0, DateTimeKind.Unspecified), "Pessoa Fisica", 100000m, 1200000m });
+
+            migrationBuilder.InsertData(
+                table: "Financiamentos",
+                columns: new[] { "FinanciamentoId", "CPF", "ClienteID", "DataUltimoVencimento", "TipoFinancimento", "ValorTotal", "ValorTotalComJuros" },
+                values: new object[] { 2, "90345678900", "2", new DateTime(2023, 11, 13, 0, 0, 0, 0, DateTimeKind.Unspecified), "Pessoa Juridica", 100000m, 1200000m });
+
+            migrationBuilder.InsertData(
+                table: "Parcelas",
+                columns: new[] { "Id", "DataPagamento", "DataVencimento", "FinanciamentoId", "NumeroParcela", "ValorParcela" },
+                values: new object[] { 1, new DateTime(2023, 10, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, 2, 600000m });
+
+            migrationBuilder.InsertData(
+                table: "Parcelas",
+                columns: new[] { "Id", "DataPagamento", "DataVencimento", "FinanciamentoId", "NumeroParcela", "ValorParcela" },
+                values: new object[] { 2, new DateTime(2023, 10, 30, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, 3, 400000m });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -258,6 +291,11 @@ namespace ControleFinanceiro.DAL.Migrations
                 table: "Financiamentos",
                 column: "CPF",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Parcelas_FinanciamentoId",
+                table: "Parcelas",
+                column: "FinanciamentoId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

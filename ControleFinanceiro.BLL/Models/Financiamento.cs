@@ -10,7 +10,7 @@ namespace ControleFinanceiro.BLL.Models
     public class Financiamento
     {
         public int FinanciamentoId { get; set; }
-        public int CPF { get; set; }
+        public string CPF { get; set; }
         public string TipoFinancimento { get; set; }
         public decimal ValorTotal { get; set; }
         public string ClienteID { get; set; }

@@ -24,6 +24,28 @@ namespace ControleFinanceiro.DAL.Mapeamentos
             builder.HasOne(f => f.Cliente).WithMany(f => f.Financiamentos).HasForeignKey(f => f.ClienteID).IsRequired().OnDelete(DeleteBehavior.NoAction);
             builder.HasMany(f => f.Parcelas).WithOne(f => f.Financiamento);
 
+            builder.HasData(
+                new Financiamento
+                {
+                    FinanciamentoId = 1,
+                    ClienteID = "1",
+                    CPF = "12345678956",
+                    TipoFinancimento = "Pessoa Fisica",
+                    ValorTotal = 100000,
+                    ValorTotalComJuros = 1200000,
+                    DataUltimoVencimento = new DateTime(2023, 10, 3)
+                },
+                new Financiamento
+                {
+                    FinanciamentoId = 2,
+                    ClienteID = "2",
+                    CPF = "90345678900",
+                    TipoFinancimento = "Pessoa Juridica",
+                    ValorTotal = 100000,
+                    ValorTotalComJuros = 1200000,
+                    DataUltimoVencimento = new DateTime(2023, 11, 13)
+                });
+
             builder.ToTable("Financiamentos");
         }
     }

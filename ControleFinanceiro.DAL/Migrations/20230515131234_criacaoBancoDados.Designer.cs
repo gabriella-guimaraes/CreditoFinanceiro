@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ControleFinanceiro.DAL.Migrations
 {
     [DbContext(typeof(Contexto))]
-    [Migration("20230514201724_criacaoBancoDados")]
+    [Migration("20230515131234_criacaoBancoDados")]
     partial class criacaoBancoDados
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -26,7 +26,7 @@ namespace ControleFinanceiro.DAL.Migrations
 
             modelBuilder.Entity("ControleFinanceiro.BLL.Models.Cliente", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<string>("ClienteId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
 
@@ -51,6 +51,9 @@ namespace ControleFinanceiro.DAL.Migrations
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
+
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
@@ -93,7 +96,7 @@ namespace ControleFinanceiro.DAL.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
-                    b.HasKey("Id");
+                    b.HasKey("ClienteId");
 
                     b.HasIndex("CPF")
                         .IsUnique();
@@ -107,6 +110,36 @@ namespace ControleFinanceiro.DAL.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("Clientes", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            ClienteId = "1",
+                            AccessFailedCount = 0,
+                            CPF = "12345678956",
+                            Celular = 999999999,
+                            ConcurrencyStamp = "10a5aec9-78a9-405a-aaf8-a152d7c47ef4",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            Nome = "Administrador",
+                            PhoneNumberConfirmed = false,
+                            TwoFactorEnabled = false,
+                            UF = "SP"
+                        },
+                        new
+                        {
+                            ClienteId = "2",
+                            AccessFailedCount = 0,
+                            CPF = "90345678900",
+                            Celular = 999922993,
+                            ConcurrencyStamp = "869f7872-e5a3-48c3-a2db-5a9bee51f8e9",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            Nome = "Usuário",
+                            PhoneNumberConfirmed = false,
+                            TwoFactorEnabled = false,
+                            UF = "RS"
+                        });
                 });
 
             modelBuilder.Entity("ControleFinanceiro.BLL.Models.Financiamento", b =>
@@ -117,9 +150,10 @@ namespace ControleFinanceiro.DAL.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("FinanciamentoId"), 1L, 1);
 
-                    b.Property<int>("CPF")
+                    b.Property<string>("CPF")
+                        .IsRequired()
                         .HasMaxLength(20)
-                        .HasColumnType("int");
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<string>("ClienteID")
                         .IsRequired()
@@ -135,6 +169,9 @@ namespace ControleFinanceiro.DAL.Migrations
                     b.Property<decimal>("ValorTotal")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<decimal>("ValorTotalComJuros")
+                        .HasColumnType("decimal(18,2)");
+
                     b.HasKey("FinanciamentoId");
 
                     b.HasIndex("CPF")
@@ -143,6 +180,28 @@ namespace ControleFinanceiro.DAL.Migrations
                     b.HasIndex("ClienteID");
 
                     b.ToTable("Financiamentos", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            FinanciamentoId = 1,
+                            CPF = "12345678956",
+                            ClienteID = "1",
+                            DataUltimoVencimento = new DateTime(2023, 10, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            TipoFinancimento = "Pessoa Fisica",
+                            ValorTotal = 100000m,
+                            ValorTotalComJuros = 1200000m
+                        },
+                        new
+                        {
+                            FinanciamentoId = 2,
+                            CPF = "90345678900",
+                            ClienteID = "2",
+                            DataUltimoVencimento = new DateTime(2023, 11, 13, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            TipoFinancimento = "Pessoa Juridica",
+                            ValorTotal = 100000m,
+                            ValorTotalComJuros = 1200000m
+                        });
                 });
 
             modelBuilder.Entity("ControleFinanceiro.BLL.Models.Funcao", b =>
@@ -179,7 +238,10 @@ namespace ControleFinanceiro.DAL.Migrations
             modelBuilder.Entity("ControleFinanceiro.BLL.Models.Parcela", b =>
                 {
                     b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<DateTime?>("DataPagamento")
                         .IsRequired()
@@ -199,7 +261,29 @@ namespace ControleFinanceiro.DAL.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("FinanciamentoId");
+
                     b.ToTable("Parcelas", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            DataPagamento = new DateTime(2023, 10, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DataVencimento = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FinanciamentoId = 1,
+                            NumeroParcela = 2,
+                            ValorParcela = 600000m
+                        },
+                        new
+                        {
+                            Id = 2,
+                            DataPagamento = new DateTime(2023, 10, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DataVencimento = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FinanciamentoId = 2,
+                            NumeroParcela = 3,
+                            ValorParcela = 400000m
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -323,7 +407,7 @@ namespace ControleFinanceiro.DAL.Migrations
                 {
                     b.HasOne("ControleFinanceiro.BLL.Models.Financiamento", "Financiamento")
                         .WithMany("Parcelas")
-                        .HasForeignKey("Id")
+                        .HasForeignKey("FinanciamentoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

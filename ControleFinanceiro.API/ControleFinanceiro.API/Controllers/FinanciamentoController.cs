@@ -73,7 +73,7 @@ namespace ControleFinanceiro.API.Controllers
         }
 
         //POST: api/Financiamento
-
+        [HttpPost]
         public async Task<ActionResult<Financiamento>> PostFinanciamento(Financiamento financiamento)
         {
             // Verifica se as entradas do usuário são válidas
@@ -155,7 +155,7 @@ namespace ControleFinanceiro.API.Controllers
 
         private bool AprovarCredito(Financiamento financiamento)
         {
-            if (financiamento.TipoFinancimento == "PessoaJuridica")
+            if (financiamento.TipoFinancimento == "Pessoa Juridica")
             {
                 if (financiamento.ValorTotal < 15000)
                 {

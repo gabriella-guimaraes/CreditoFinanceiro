@@ -19,7 +19,25 @@ namespace ControleFinanceiro.DAL.Mapeamentos
             builder.Property(p => p.ValorParcela).IsRequired();
             builder.Property(p => p.DataPagamento).IsRequired();
 
-            builder.HasOne(p => p.Financiamento).WithMany(p => p.Parcelas).HasForeignKey(p => p.Id).IsRequired();
+            builder.HasOne(p => p.Financiamento).WithMany(p => p.Parcelas).HasForeignKey(p => p.FinanciamentoId).IsRequired();
+
+            builder.HasData(
+                new Parcela
+                {
+                    Id = 1,
+                    FinanciamentoId = 1,
+                    NumeroParcela = 2,
+                    ValorParcela = 600000,
+                    DataPagamento = new DateTime(2023, 10, 1)
+                },
+                new Parcela
+                {
+                    Id = 2,
+                    FinanciamentoId = 2,
+                    NumeroParcela = 3,
+                    ValorParcela = 400000,
+                    DataPagamento = new DateTime(2023, 10, 30)
+                });
 
             builder.ToTable("Parcelas");
         }

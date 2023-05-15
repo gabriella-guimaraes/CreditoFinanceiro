@@ -9,12 +9,11 @@ namespace ControleFinanceiro.BLL.Models
 {
     public class Cliente : IdentityUser<string>
     {
-        //public int Id { get; set; }
+        public string ClienteId { get; set; } // Nova propriedade para ser usada como chave primária
         public string Nome { get; set; }
         public string CPF { get; set; }
         public string UF { get; set; }
         public int Celular { get; set; }
         public virtual ICollection<Financiamento> Financiamentos { get; set; }
-        //public virtual ICollection<Parcela> Parcelas { get; set; }
     }
 }
