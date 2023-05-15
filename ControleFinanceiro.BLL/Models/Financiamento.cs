@@ -17,5 +17,6 @@ namespace ControleFinanceiro.BLL.Models
         public Cliente Cliente { get; set; }
         public DateTime DataUltimoVencimento { get; set; }
         public virtual ICollection<Parcela> Parcelas { get; set; }
+        public decimal ValorTotalComJuros { get; set; }
     }
 }

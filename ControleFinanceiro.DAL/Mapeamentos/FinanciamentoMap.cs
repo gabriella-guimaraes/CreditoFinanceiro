@@ -18,6 +18,7 @@ namespace ControleFinanceiro.DAL.Mapeamentos
             builder.HasIndex(f => f.CPF).IsUnique();
             builder.Property(f => f.TipoFinancimento).IsRequired();
             builder.Property(f => f.ValorTotal).IsRequired();
+            builder.Property(f => f.ValorTotalComJuros).IsRequired();
             builder.Property(f => f.DataUltimoVencimento).IsRequired();
 
             builder.HasOne(f => f.Cliente).WithMany(f => f.Financiamentos).HasForeignKey(f => f.ClienteID).IsRequired().OnDelete(DeleteBehavior.NoAction);
