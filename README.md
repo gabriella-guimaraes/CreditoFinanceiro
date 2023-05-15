@@ -80,3 +80,34 @@ O projeto de Crédito Financeiro roda junto com a Interface. Ambas devem ser ini
 
 * a aplicação utiliza um banco de dados local para armazenar dados. Os mapeamentos possuem métodos para povoar dados fictícios nas tabelas. Caso prefira, basta comentar os trechos 'builder.HasData(...)' para criar as tabelas vazias e preencher-las via INSERT diretamente na base de dados.
 
+### 5.1.2 `Consultas na base de dados`
+
+* Segue alguns exemplos de consultas que podemos obter apartir da base de dados.
+
+Listar todos os clientes do estado de SP que possuem mais de 60% das parcelas pagas:
+
+SELECT c.*
+FROM Clientes c
+WHERE c.UF = 'SP' AND (
+    SELECT COUNT(*)
+    FROM Parcelas p
+    INNER JOIN Financiamentos f ON p.FinanciamentoId = f.FinanciamentoId
+    WHERE f.ClienteId = c.ClienteId AND p.DataPagamento IS NOT NULL
+) / (
+    SELECT COUNT(*)
+    FROM Parcelas p
+    INNER JOIN Financiamentos f ON p.FinanciamentoId = f.FinanciamentoId
+    WHERE f.ClienteId = c.ClienteId
+) > 0.6;
+
+Listar os primeiros quatro clientes que possuem alguma parcela com mais de cinco dias sem atraso (Data Vencimento maior que data atual E Data Pagamento nula):
+
+SELECT TOP 4 c.*
+FROM Clientes c
+WHERE EXISTS (
+    SELECT *
+    FROM Parcelas p
+    INNER JOIN Financiamentos f ON p.FinanciamentoId = f.FinanciamentoId
+    WHERE f.ClienteId = c.ClienteId AND p.DataVencimento > GETDATE() AND p.DataPagamento IS NULL
+);
+
