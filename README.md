@@ -1,7 +1,7 @@
 # CreditoFinanceiro
 Projeto de estudos. Desing para um processamento de liberação de crédito para Financiadoras.
 
-# GG Burguer API
+# Controle Financeiro API
 
 ## Índice
 
