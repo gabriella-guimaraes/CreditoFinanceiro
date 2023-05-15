@@ -209,12 +209,12 @@ namespace ControleFinanceiro.DAL.Migrations
             migrationBuilder.InsertData(
                 table: "Clientes",
                 columns: new[] { "ClienteId", "AccessFailedCount", "CPF", "Celular", "ConcurrencyStamp", "Email", "EmailConfirmed", "Id", "LockoutEnabled", "LockoutEnd", "Nome", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UF", "UserName" },
-                values: new object[] { "1", 0, "12345678956", 999999999, "10a5aec9-78a9-405a-aaf8-a152d7c47ef4", null, false, null, false, null, "Administrador", null, null, null, null, false, null, false, "SP", null });
+                values: new object[] { "1", 0, "12345678956", 999999999, "c857eb85-4dec-4491-a5f4-50a62dda230f", null, false, null, false, null, "Administrador", null, null, null, null, false, null, false, "SP", null });
 
             migrationBuilder.InsertData(
                 table: "Clientes",
                 columns: new[] { "ClienteId", "AccessFailedCount", "CPF", "Celular", "ConcurrencyStamp", "Email", "EmailConfirmed", "Id", "LockoutEnabled", "LockoutEnd", "Nome", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UF", "UserName" },
-                values: new object[] { "2", 0, "90345678900", 999922993, "869f7872-e5a3-48c3-a2db-5a9bee51f8e9", null, false, null, false, null, "Usuário", null, null, null, null, false, null, false, "RS", null });
+                values: new object[] { "2", 0, "90345678900", 999922993, "1d35353d-6253-4758-aa2c-b297014490cc", null, false, null, false, null, "Usuário", null, null, null, null, false, null, false, "RS", null });
 
             migrationBuilder.InsertData(
                 table: "Financiamentos",

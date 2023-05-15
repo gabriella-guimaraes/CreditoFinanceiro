@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ControleFinanceiro.DAL.Migrations
 {
     [DbContext(typeof(Contexto))]
-    [Migration("20230515131234_criacaoBancoDados")]
+    [Migration("20230515155921_criacaoBancoDados")]
     partial class criacaoBancoDados
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -118,7 +118,7 @@ namespace ControleFinanceiro.DAL.Migrations
                             AccessFailedCount = 0,
                             CPF = "12345678956",
                             Celular = 999999999,
-                            ConcurrencyStamp = "10a5aec9-78a9-405a-aaf8-a152d7c47ef4",
+                            ConcurrencyStamp = "c857eb85-4dec-4491-a5f4-50a62dda230f",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             Nome = "Administrador",
@@ -132,7 +132,7 @@ namespace ControleFinanceiro.DAL.Migrations
                             AccessFailedCount = 0,
                             CPF = "90345678900",
                             Celular = 999922993,
-                            ConcurrencyStamp = "869f7872-e5a3-48c3-a2db-5a9bee51f8e9",
+                            ConcurrencyStamp = "1d35353d-6253-4758-aa2c-b297014490cc",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             Nome = "Usuário",

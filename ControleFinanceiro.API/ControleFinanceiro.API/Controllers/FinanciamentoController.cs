@@ -74,7 +74,7 @@ namespace ControleFinanceiro.API.Controllers
 
         //POST: api/Financiamento
         [HttpPost]
-        public async Task<ActionResult<Financiamento>> PostFinanciamento(Financiamento financiamento)
+        public async Task<ActionResult<Financiamento>> PostFinanciamento([FromBody]Financiamento financiamento)
         {
             // Verifica se as entradas do usuário são válidas
             if (!ValidarEntradas(financiamento))
